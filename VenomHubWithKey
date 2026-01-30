@@ -1,0 +1,491 @@
+local Players = game:GetService("Players")
+local UserInputService = game:GetService("UserInputService")
+local TweenService = game:GetService("TweenService")
+local RunService = game:GetService("RunService")
+local Lighting = game:GetService("Lighting")
+
+local LocalPlayer = Players.LocalPlayer
+
+local allowedUserIds = {
+    [1284751386] = true,
+    [10024909659] = true,
+    [4501146471] = true,
+}
+
+local KEYWORD = "3f83ja2"
+
+-- Function to create the key input GUI and return when key is accepted
+local function showKeyUI()
+    local gui = Instance.new("ScreenGui")
+    gui.Name = "KeyInputGui"
+    gui.ResetOnSpawn = false
+    gui.Parent = LocalPlayer:WaitForChild("PlayerGui")
+
+    local frame = Instance.new("Frame")
+    frame.Size = UDim2.new(0, 300, 0, 220)
+    frame.Position = UDim2.new(0.5, -150, 0.5, -110)
+    frame.BackgroundColor3 = Color3.fromRGB(18, 18, 22)
+    frame.BorderSizePixel = 0
+    frame.ClipsDescendants = true
+    frame.Active = true
+    frame.Draggable = true
+    frame.Parent = gui
+
+    local uiCorner = Instance.new("UICorner")
+    uiCorner.CornerRadius = UDim.new(0, 16)
+    uiCorner.Parent = frame
+
+    local title = Instance.new("TextLabel")
+    title.Size = UDim2.new(1, 0, 0, 50)
+    title.BackgroundTransparency = 1
+    title.Text = "Enter Access Key"
+    title.TextColor3 = Color3.fromRGB(255, 35, 35)
+    title.TextSize = 32
+    title.Font = Enum.Font.GothamBlack
+    title.TextStrokeTransparency = 0.7
+    title.TextStrokeColor3 = Color3.fromRGB(140, 0, 0)
+    title.Parent = frame
+
+    local keyBox = Instance.new("TextBox")
+    keyBox.Size = UDim2.new(1, -40, 0, 40)
+    keyBox.Position = UDim2.new(0, 20, 0, 70)
+    keyBox.BackgroundColor3 = Color3.fromRGB(35, 35, 45)
+    keyBox.TextColor3 = Color3.new(1, 1, 1)
+    keyBox.Font = Enum.Font.GothamSemibold
+    keyBox.TextSize = 20
+    keyBox.ClearTextOnFocus = false
+    keyBox.PlaceholderText = "Enter key here..."
+    keyBox.Parent = frame
+
+    local submitBtn = Instance.new("TextButton")
+    submitBtn.Size = UDim2.new(0, 100, 0, 40)
+    submitBtn.Position = UDim2.new(0.5, -50, 0, 120)
+    submitBtn.BackgroundColor3 = Color3.fromRGB(255, 35, 35)
+    submitBtn.TextColor3 = Color3.new(1, 1, 1)
+    submitBtn.Font = Enum.Font.GothamBold
+    submitBtn.TextSize = 20
+    submitBtn.Text = "Submit"
+    submitBtn.Parent = frame
+
+    local infoLabel = Instance.new("TextLabel")
+    infoLabel.Size = UDim2.new(1, -40, 0, 40)
+    infoLabel.Position = UDim2.new(0, 20, 0, 170)
+    infoLabel.BackgroundTransparency = 1
+    infoLabel.TextColor3 = Color3.fromRGB(140, 140, 140)
+    infoLabel.Font = Enum.Font.Gotham
+    infoLabel.TextSize = 14
+    infoLabel.TextWrapped = true
+    infoLabel.Text = "Join Discord: discord.gg/AcTVsMADV"
+    infoLabel.Parent = frame
+
+    -- Make the discord text selectable / copyable workaround:
+    -- User can select the text manually. (TextLabel isn’t natively selectable, but the user can highlight the text with mouse)
+    -- For executors, copying text programmatically is not guaranteed. So manual copy is the fallback.
+
+    local accepted = false
+
+    local function onSubmit()
+        local text = keyBox.Text
+        if text:lower():find(KEYWORD) then
+            accepted = true
+            gui:Destroy()
+        else
+            infoLabel.Text = "Invalid key! Make sure it contains the keyword."
+            infoLabel.TextColor3 = Color3.fromRGB(255, 100, 100)
+        end
+    end
+
+    submitBtn.MouseButton1Click:Connect(onSubmit)
+    keyBox.FocusLost:Connect(function(enterPressed)
+        if enterPressed then
+            onSubmit()
+        end
+    end)
+
+    -- Wait until accepted is true
+    while not accepted do
+        task.wait(0.1)
+    end
+end
+
+-- VenomHub function (paste your full VenomHub code here)
+local function venomHub()
+    -- [Your full VenomHub code here]
+    -- For demo, just print loaded:
+    print("[VenomHub] Loaded – GUI should now show Speed / Auto Bat / Ultra Spin / FPS Booster")
+    -- Paste your full VenomHub code below this comment in your final script.
+    -- =====================================================
+-- VenomHub - SPEED + AUTO BAT + ULTRA SPIN + FPS BOOSTER
+-- =====================================================
+
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+local UserInputService = game:GetService("UserInputService")
+local TweenService = game:GetService("TweenService")
+local Lighting = game:GetService("Lighting")
+local LocalPlayer = Players.LocalPlayer
+
+local NORMAL_SPEED = 55
+local CARRY_SPEED  = 28
+
+-- Toggles
+local qPressed       = false
+local autoBatEnabled = false
+local ultraSpinEnabled = false
+local fpsBoostEnabled = false
+
+UserInputService.InputBegan:Connect(function(input, gameProcessed)
+    if gameProcessed then return end
+    if input.KeyCode == Enum.KeyCode.Q then
+        qPressed = not qPressed
+    end
+end)
+
+-- ════════════════════════════════════════════════════════
+--                Create Modern GUI
+-- ════════════════════════════════════════════════════════
+
+local gui = Instance.new("ScreenGui")
+gui.Name = "VenomHubGUI"
+gui.ResetOnSpawn = false
+gui.Parent = LocalPlayer:WaitForChild("PlayerGui", 8)
+
+local mainFrame = Instance.new("Frame")
+mainFrame.Size       = UDim2.new(0, 260, 0, 440)   -- taller for 3 buttons
+mainFrame.Position   = UDim2.new(0.5, -130, 0.5, -220)
+mainFrame.BackgroundColor3 = Color3.fromRGB(18, 18, 22)
+mainFrame.BorderSizePixel = 0
+mainFrame.ClipsDescendants = true
+mainFrame.Active     = true
+mainFrame.Draggable  = true
+mainFrame.Parent     = gui
+
+local uiCorner = Instance.new("UICorner")
+uiCorner.CornerRadius = UDim.new(0, 16)
+uiCorner.Parent = mainFrame
+
+-- Animated gradient
+local bgGradient = Instance.new("UIGradient")
+bgGradient.Color = ColorSequence.new{
+    ColorSequenceKeypoint.new(0,   Color3.fromRGB(30, 30, 45)),
+    ColorSequenceKeypoint.new(0.5, Color3.fromRGB(45, 25, 60)),
+    ColorSequenceKeypoint.new(1,   Color3.fromRGB(30, 30, 45))
+}
+bgGradient.Rotation = 45
+bgGradient.Parent = mainFrame
+
+spawn(function()
+    while mainFrame.Parent do
+        TweenService:Create(bgGradient, TweenInfo.new(12, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut, -1, true), {
+            Rotation = 135
+        }):Play()
+        task.wait(24)
+    end
+end)
+
+-- Title (RED)
+local title = Instance.new("TextLabel")
+title.Size = UDim2.new(1, 0, 0, 50)
+title.BackgroundTransparency = 1
+title.Text = "VenomHub"
+title.TextColor3 = Color3.fromRGB(255, 35, 35)
+title.TextSize = 32
+title.Font = Enum.Font.GothamBlack
+title.TextStrokeTransparency = 0.7
+title.TextStrokeColor3 = Color3.fromRGB(140, 0, 0)
+title.Parent = mainFrame
+
+local titleStroke = Instance.new("UIStroke")
+titleStroke.Thickness = 2
+titleStroke.Color = Color3.fromRGB(180, 0, 0)
+titleStroke.Transparency = 0.5
+titleStroke.Parent = title
+
+-- Close button
+local closeBtn = Instance.new("TextButton")
+closeBtn.Size = UDim2.new(0, 34, 0, 34)
+closeBtn.Position = UDim2.new(1, -44, 0, 8)
+closeBtn.BackgroundColor3 = Color3.fromRGB(220, 40, 40)
+closeBtn.Text = "×"
+closeBtn.TextColor3 = Color3.new(1,1,1)
+closeBtn.Font = Enum.Font.GothamBold
+closeBtn.TextSize = 24
+closeBtn.Parent = mainFrame
+
+local closeCorner = Instance.new("UICorner")
+closeCorner.CornerRadius = UDim.new(0, 10)
+closeCorner.Parent = closeBtn
+
+-- Button holder
+local buttonHolder = Instance.new("Frame")
+buttonHolder.Size = UDim2.new(1, -20, 0, 300)
+buttonHolder.Position = UDim2.new(0, 10, 0, 60)
+buttonHolder.BackgroundTransparency = 1
+buttonHolder.Parent = mainFrame
+
+local function createButton(text, subText, yOffset, callback)
+    local f = Instance.new("Frame")
+    f.Size = UDim2.new(1, 0, 0, 68)
+    f.Position = UDim2.new(0, 0, 0, yOffset)
+    f.BackgroundTransparency = 1
+    f.Parent = buttonHolder
+
+    local btn = Instance.new("TextButton")
+    btn.Size = UDim2.new(1, 0, 0, 48)
+    btn.BackgroundColor3 = Color3.fromRGB(35, 35, 45)
+    btn.Text = text
+    btn.TextColor3 = Color3.new(0.95,0.95,0.98)
+    btn.Font = Enum.Font.GothamSemibold
+    btn.TextSize = 18
+    btn.AutoButtonColor = false
+    btn.Parent = f
+
+    local corner = Instance.new("UICorner")
+    corner.CornerRadius = UDim.new(0, 10)
+    corner.Parent = btn
+
+    local stroke = Instance.new("UIStroke")
+    stroke.Thickness = 1.5
+    stroke.Color = Color3.fromRGB(80, 80, 110)
+    stroke.Transparency = 0.6
+    stroke.Parent = btn
+
+    if subText then
+        local sub = Instance.new("TextLabel")
+        sub.Size = UDim2.new(1,0,0,14)
+        sub.Position = UDim2.new(0,0,1,-14)
+        sub.BackgroundTransparency = 1
+        sub.Text = subText
+        sub.TextColor3 = Color3.fromRGB(150,150,170)
+        sub.Font = Enum.Font.Gotham
+        sub.TextSize = 12
+        sub.TextTransparency = 0.35
+        sub.Parent = f
+    end
+
+    btn.MouseEnter:Connect(function()
+        TweenService:Create(btn, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(55,55,70)}):Play()
+        TweenService:Create(stroke, TweenInfo.new(0.2), {Transparency = 0.3}):Play()
+    end)
+
+    btn.MouseLeave:Connect(function()
+        TweenService:Create(btn, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(35,35,45)}):Play()
+        TweenService:Create(stroke, TweenInfo.new(0.2), {Transparency = 0.6}):Play()
+    end)
+
+    btn.MouseButton1Click:Connect(callback)
+
+    return btn
+end
+
+-- Status label
+local statusLabel = Instance.new("TextLabel")
+statusLabel.Size = UDim2.new(1, -20, 0, 40)
+statusLabel.Position = UDim2.new(0, 10, 1, -60)
+statusLabel.BackgroundColor3 = Color3.fromRGB(28, 28, 38)
+statusLabel.Text = "Auto Grab Helper: OFF"
+statusLabel.TextColor3 = Color3.fromRGB(200,200,220)
+statusLabel.Font = Enum.Font.GothamSemibold
+statusLabel.TextSize = 17
+statusLabel.Parent = mainFrame
+
+local sc = Instance.new("UICorner", statusLabel); sc.CornerRadius = UDim.new(0,10)
+local ss = Instance.new("UIStroke", statusLabel); ss.Thickness = 1; ss.Color = Color3.fromRGB(100,100,140); ss.Transparency = 0.5
+
+-- Discord
+local discordLabel = Instance.new("TextLabel")
+discordLabel.Size = UDim2.new(1,0,0,26)
+discordLabel.Position = UDim2.new(0,0,1,-26)
+discordLabel.BackgroundTransparency = 1
+discordLabel.Text = "discord.gg/AcTVsMADV"
+discordLabel.TextColor3 = Color3.fromRGB(140,100,255)
+discordLabel.Font = Enum.Font.Gotham
+discordLabel.TextSize = 14
+discordLabel.TextTransparency = 0.3
+discordLabel.Parent = mainFrame
+
+-- ════════════════════════════════════════════════════════
+--                   Buttons
+-- ════════════════════════════════════════════════════════
+
+local speedBtn = createButton("Speed: "..NORMAL_SPEED, nil, 0, nil)
+
+local autoBatBtn = createButton("Auto Bat: OFF", nil, 74, function()
+    autoBatEnabled = not autoBatEnabled
+    autoBatBtn.Text = "Auto Bat: " .. (autoBatEnabled and "ON" or "OFF")
+    autoBatBtn.BackgroundColor3 = autoBatEnabled and Color3.fromRGB(40,180,90) or Color3.fromRGB(35,35,45)
+end)
+
+local ultraSpinBtn = createButton("Ultra Spin: OFF", "hard for people to hit you", 148, function()
+    ultraSpinEnabled = not ultraSpinEnabled
+    ultraSpinBtn.Text = "Ultra Spin: " .. (ultraSpinEnabled and "ON" or "OFF")
+    ultraSpinBtn.BackgroundColor3 = ultraSpinEnabled and Color3.fromRGB(220,80,255) or Color3.fromRGB(35,35,45)
+end)
+
+local fpsBoostBtn = createButton("FPS Booster: OFF", nil, 222, function()
+    fpsBoostEnabled = not fpsBoostEnabled
+    fpsBoostBtn.Text = "FPS Booster: " .. (fpsBoostEnabled and "ON" or "OFF")
+    fpsBoostBtn.BackgroundColor3 = fpsBoostEnabled and Color3.fromRGB(80, 200, 255) or Color3.fromRGB(35,35,45)
+    
+    if fpsBoostEnabled then
+        -- Apply FPS Booster settings
+        for _, v in pairs(workspace:GetDescendants()) do
+            if v:IsA("BasePart") and not v:IsDescendantOf(LocalPlayer.Character) then
+                if _G.Settings.Meshes.NoMesh or _G.Settings.Meshes.NoTexture then
+                    if v:IsA("MeshPart") or v:IsA("SpecialMesh") then
+                        if _G.Settings.Meshes.NoMesh then v.MeshId = "" end
+                        if _G.Settings.Meshes.NoTexture then v.TextureId = "" end
+                    end
+                end
+                if _G.Settings.Images.Invisible and v:FindFirstChildOfClass("Decal") then
+                    v:FindFirstChildOfClass("Decal").Transparency = 1
+                end
+                if _G.Settings.Particles.Invisible and v:FindFirstChildOfClass("ParticleEmitter") then
+                    v:FindFirstChildOfClass("ParticleEmitter").Enabled = false
+                end
+            end
+        end
+        
+        Lighting.GlobalShadows = not _G.Settings.Other["No Shadows"]
+        Lighting.Brightness = 1
+        Lighting.FogEnd = 100000
+        Lighting.FogStart = 100000
+        settings().Rendering.QualityLevel = Enum.QualityLevel.Level01
+        
+        -- More aggressive optimizations
+        for _, effect in pairs(Lighting:GetChildren()) do
+            if effect:IsA("PostEffect") and _G.Settings.Other["No Camera Effects"] then
+                effect.Enabled = false
+            end
+        end
+    else
+        -- Minimal revert (some changes can't be perfectly undone)
+        settings().Rendering.QualityLevel = Enum.QualityLevel.Automatic
+        Lighting.GlobalShadows = true
+        -- You can add more revert logic if needed
+    end
+end)
+
+closeBtn.MouseButton1Click:Connect(function()
+    gui:Destroy()
+end)
+
+-- Character setup
+local humanoid, rootPart, speedDisplay
+
+local function setupCharacter(char)
+    humanoid = char:WaitForChild("Humanoid", 10)
+    rootPart = char:WaitForChild("HumanoidRootPart", 10) or char:WaitForChild("Torso", 5) or char:WaitForChild("UpperTorso", 5)
+    
+    if not (humanoid and rootPart) then return end
+
+    local bb = Instance.new("BillboardGui")
+    bb.Size = UDim2.new(0,140,0,32)
+    bb.StudsOffset = Vector3.new(0,3.2,0)
+    bb.AlwaysOnTop = true
+    bb.Parent = char:WaitForChild("Head", 8)
+
+    speedDisplay = Instance.new("TextLabel")
+    speedDisplay.Size = UDim2.new(1,0,1,0)
+    speedDisplay.BackgroundTransparency = 1
+    speedDisplay.TextColor3 = Color3.fromRGB(80,220,255)
+    speedDisplay.Font = Enum.Font.GothamBold
+    speedDisplay.TextScaled = true
+    speedDisplay.TextStrokeTransparency = 0.6
+    speedDisplay.TextStrokeColor3 = Color3.new(0,0,0)
+    speedDisplay.Parent = bb
+end
+
+if LocalPlayer.Character then
+    setupCharacter(LocalPlayer.Character)
+end
+LocalPlayer.CharacterAdded:Connect(setupCharacter)
+
+-- Helpers
+local function getBat()
+    local char = LocalPlayer.Character
+    if not char then return end
+    return char:FindFirstChild("Bat") or LocalPlayer.Backpack:FindFirstChild("Bat")
+end
+
+local function isCarryingBrainrot()
+    local char = LocalPlayer.Character
+    if not (char and humanoid) then return false end
+    for _, item in ipairs(char:GetChildren()) do
+        if item:IsA("Tool") and item.Name:lower():find("brainrot") then return true end
+    end
+    return humanoid.WalkSpeed < 30
+end
+
+local function updateSpin()
+    local char = LocalPlayer.Character
+    if not char then return end
+    
+    local root = char:FindFirstChild("HumanoidRootPart") or char:FindFirstChild("Torso") or char:FindFirstChild("UpperTorso")
+    if not root then return end
+
+    for _, v in pairs(root:GetChildren()) do
+        if v.Name == "Spinning" then
+            v:Destroy()
+        end
+    end
+
+    if ultraSpinEnabled then
+        local Spin = Instance.new("BodyAngularVelocity")
+        Spin.Name = "Spinning"
+        Spin.Parent = root
+        Spin.MaxTorque = Vector3.new(0, math.huge, 0)
+        Spin.AngularVelocity = Vector3.new(0, 20, 0)
+    end
+end
+
+-- Main loop
+RunService.RenderStepped:Connect(function()
+    local char = LocalPlayer.Character
+    if not (char and humanoid and rootPart) then return end
+
+    local moveDir = humanoid.MoveDirection
+    local vel = rootPart.Velocity
+    local carrying = isCarryingBrainrot()
+
+    local targetSpeed = qPressed and CARRY_SPEED or (carrying and CARRY_SPEED or NORMAL_SPEED)
+
+    if moveDir.Magnitude > 0 then
+        rootPart.Velocity = Vector3.new(moveDir.X * targetSpeed, vel.Y, moveDir.Z * targetSpeed)
+    end
+
+    -- Ultra Spin
+    updateSpin()
+
+    -- UI updates
+    speedBtn.Text = "Speed: " .. targetSpeed
+    speedBtn.BackgroundColor3 = carrying and Color3.fromRGB(50,140,80) or Color3.fromRGB(35,35,45)
+
+    statusLabel.Text = "Auto Grab Helper: " .. (qPressed and "ACTIVE" or "OFF")
+    statusLabel.BackgroundColor3 = qPressed and Color3.fromRGB(60,140,255) or Color3.fromRGB(28,28,38)
+
+    if speedDisplay then
+        local hSpeed = (rootPart.Velocity * Vector3.new(1,0,1)).Magnitude
+        speedDisplay.Text = "SPEED  " .. math.floor(hSpeed)
+    end
+
+    -- Auto Bat
+    if autoBatEnabled then
+        local bat = getBat()
+        if bat then
+            pcall(function() bat:Activate() end)
+        end
+    end
+end)
+
+print("[VenomHub] Loaded – GUI should now show Speed / Auto Bat / Ultra Spin / FPS Booster")
+end
+
+-- Main logic
+
+if allowedUserIds[LocalPlayer.UserId] then
+    venomHub()
+else
+    showKeyUI()
+    venomHub()
+end
